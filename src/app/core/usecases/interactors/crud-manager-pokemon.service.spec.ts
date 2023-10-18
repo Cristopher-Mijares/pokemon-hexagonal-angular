@@ -4,11 +4,12 @@ import { CrudManagerPokemonService } from './crud-manager-pokemon.service';
 import { PokemonRepository } from '../ports/secondary/pokemon-repository';
 import { Pokemon } from '../../domain/entities/pokemon';
 import { of } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 /**
  * In this test we are testing the use case
  */
-fdescribe('CrudManagerPokemonService', () => {
+describe('CrudManagerPokemonService', () => {
   let service: CrudManagerPokemonService;
   let pokemonRepositoryFake: jasmine.SpyObj<PokemonRepository>;
 
@@ -32,11 +33,9 @@ fdescribe('CrudManagerPokemonService', () => {
   it('should render all pokemons, not using the real API', (done: DoneFn) => {
     // Step 1 - Mocking the API response
     let pokemonsFromRepository: Pokemon[] = [
-      { id: 1, name: 'Pokemon A', order: 0, weight: 0 },
-      { id: 2, name: 'Pokemon B', order: 0, weight: 1 },
-      { id: 3, name: 'Pokemon C', order: 0, weight: 2 },
-      { id: 4, name: 'Pokemon D', order: 0, weight: 3 },
-      { id: 5, name: 'Pokemon E', order: 0, weight: 4 },
+      { id: 1, name: 'Pokemon A', urlImage: (environment['pokeapi-imgs-url'] + '1.png' ) },
+      { id: 2, name: 'Pokemon B', urlImage: (environment['pokeapi-imgs-url'] + '2.png' )  },
+      { id: 3, name: 'Pokemon C', urlImage: (environment['pokeapi-imgs-url'] + '3.png' )  }
     ];
     pokemonRepositoryFake.getAllPokemons.and.returnValue(
       of([...pokemonsFromRepository])

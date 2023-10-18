@@ -4,7 +4,8 @@ import { Observable, map } from 'rxjs';
 import { PokemonRepository } from 'src/app/core/usecases/ports/secondary/pokemon-repository';
 import { Pokemon } from 'src/app/core/domain/entities/pokemon';
 import { GetAllPokemonResponseDto } from './dto/get-all-pokemons-response-dto';
-import { GetAllResultItem } from './dto/getall-result-item-dto';
+import { GetAllResultItemDto } from './dto/getall-result-item-dto';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -14,16 +15,19 @@ export class PokemonRepositoryImplAPIService implements PokemonRepository {
 
   getAllPokemons(): Observable<Pokemon[]> {
     return this.http
-      .get<GetAllPokemonResponseDto>('https://pokeapi.co/api/v2/pokemon/')
+      .get<GetAllPokemonResponseDto>(environment['pokeapi-url'])
       .pipe(
         map((response: GetAllPokemonResponseDto) => {
           let pokemons: Pokemon[] = [];
-          response.results.forEach((resultItem: GetAllResultItem, index) => {
+          response.results.forEach((resultItem: GetAllResultItemDto, index) => {
+            debugger;
+            let pokemonId: number = parseInt(
+              resultItem.url.split('/').reverse()[1]
+            );
             pokemons.push({
-              id: parseInt(resultItem.url.charAt(resultItem.url.length - 2)),
+              id: pokemonId,
               name: resultItem.name,
-              order: index,
-              weight: 0,
+              urlImage: environment['pokeapi-imgs-url'] + pokemonId + '.png',
             });
           });
           return pokemons;

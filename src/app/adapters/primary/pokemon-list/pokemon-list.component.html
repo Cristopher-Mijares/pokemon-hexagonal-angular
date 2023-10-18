@@ -7,5 +7,6 @@
   <tr *ngFor="let pokemonItem of pokemons | async">
     <td>{{ pokemonItem.id }}</td>
     <td>{{ pokemonItem.name }}</td>
+    <td><img [src]="pokemonItem.urlImage" /></td>
   </tr>
 </table>
