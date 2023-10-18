@@ -1,0 +1,11 @@
+<p>pokemon-list</p>
+<table>
+  <thead>
+    <th>Id</th>
+    <th>Name</th>
+  </thead>
+  <tr *ngFor="let pokemonItem of pokemons | async">
+    <td>{{ pokemonItem.id }}</td>
+    <td>{{ pokemonItem.name }}</td>
+  </tr>
+</table>
