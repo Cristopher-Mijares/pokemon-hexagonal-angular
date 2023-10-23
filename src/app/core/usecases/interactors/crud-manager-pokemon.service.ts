@@ -12,7 +12,7 @@ export class CrudManagerPokemonService implements CrudManagerPokemon {
     @Inject('PokemonRepository') private _pokemonRepository: PokemonRepository
   ) {}
 
-  getAllPokemons(): Observable<Pokemon[]> {
+  getAllPokemonsThatEnjoyDanoninos(): Observable<Pokemon[]> {
     return this._pokemonRepository.getAllPokemons().pipe(
       map((response: Pokemon[]) => {
         let processedResp: Pokemon[] = [];

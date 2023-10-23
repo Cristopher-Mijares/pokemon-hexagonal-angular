@@ -15,7 +15,7 @@ export class PokemonListComponent {
     @Inject('CrudManagerPokemon')
     private pokemonsCrudManager: CrudManagerPokemon
   ) {
-    this.pokemons = this.pokemonsCrudManager.getAllPokemons();
+    this.pokemons = this.pokemonsCrudManager.getAllPokemonsThatEnjoyDanoninos();
   }
 
   ngOnInit() {}

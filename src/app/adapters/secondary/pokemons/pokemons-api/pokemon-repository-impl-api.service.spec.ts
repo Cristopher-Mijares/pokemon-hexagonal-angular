@@ -25,12 +25,8 @@ fdescribe('PokemonRepositoryImplAPIService', () => {
     service = TestBed.inject(PokemonRepositoryImplAPIService);
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
-
   it('should get 3 pokemons, and transform DTOs to 3 business objects', (done: DoneFn) => {
-    // Step 1 - Mocking the Pokemon-API's response in terms of Pokemon-Api's DTOs
+    //#region Step 1 - Mocking the Pokemon-API's response in terms of Pokemon-Api's DTOs
     let pokemonsFromAPI: GetAllResultItemDto[] = [
       { name: 'Pokemon A', url: (environment['pokeapi-url'] + '1/') },
       { name: 'Pokemon B', url: (environment['pokeapi-url'] + '2/')  },
@@ -44,23 +40,27 @@ fdescribe('PokemonRepositoryImplAPIService', () => {
     httpClientSpy.get.and.returnValue(
       of(fakeResponse)
     );
-    
-    // Step 2 - Mocking the response type in terms of business objects
+    //#endregion
+
+    //#region Step 2 - Mocking the response type in terms of business objects
     let expectedPokemons: Pokemon[] = [
       { id: 1, name: 'Pokemon A', urlImage: (environment['pokeapi-imgs-url'] + '1.png' ) },
       { id: 2, name: 'Pokemon B', urlImage: (environment['pokeapi-imgs-url'] + '2.png' )  },
       { id: 3, name: 'Pokemon C', urlImage: (environment['pokeapi-imgs-url'] + '3.png' )  }
     ];
+    //#endregion
     
-    // Step 3 - Executing the tested method
+    //#region Step 3 - Executing the tested method
     let pokemonsBusinessObjects: Pokemon[] = [];
     service.getAllPokemons().subscribe((pokemons: Pokemon[]) => {
       pokemonsBusinessObjects = pokemons;
       done();
     });
+    //#endregion
 
-    // Step 4 - Evaluating the results
+    //#region Step 4 - Evaluating the results
     expect(httpClientSpy.get).toHaveBeenCalledTimes(1)
     expect(pokemonsBusinessObjects).toEqual(expectedPokemons);
+    //#endregion
   });
 });
