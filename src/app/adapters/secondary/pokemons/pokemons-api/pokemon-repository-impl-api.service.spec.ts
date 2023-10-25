@@ -9,6 +9,7 @@ import { GetAllPokemonResponseDto } from './dto/get-all-pokemons-response-dto';
 import { GetAllResultItemDto } from './dto/getall-result-item-dto';
 
 fdescribe('PokemonRepositoryImplAPIService', () => {
+  //#region Pre-Step - Set the Http fake object
   let service: PokemonRepositoryImplAPIService;
   let httpClientSpy: { get: jasmine.Spy };
   httpClientSpy = jasmine.createSpyObj('HttpClient', ['get']);
@@ -24,9 +25,10 @@ fdescribe('PokemonRepositoryImplAPIService', () => {
     });
     service = TestBed.inject(PokemonRepositoryImplAPIService);
   });
+  //#endregion
 
-  it('should get 3 pokemons, and transform DTOs to 3 business objects', (done: DoneFn) => {
-    //#region Step 1 - Mocking the Pokemon-API's response in terms of Pokemon-Api's DTOs
+  it('should get 3 pokemons from the api and must generate 3 business object', (done: DoneFn) => {
+    //#region Step 1 - ARRANGING the fake api response and the expected output of this test
     let pokemonsFromAPI: GetAllResultItemDto[] = [
       { name: 'Pokemon A', url: (environment['pokeapi-url'] + '1/') },
       { name: 'Pokemon B', url: (environment['pokeapi-url'] + '2/')  },
@@ -40,9 +42,8 @@ fdescribe('PokemonRepositoryImplAPIService', () => {
     httpClientSpy.get.and.returnValue(
       of(fakeResponse)
     );
-    //#endregion
-
-    //#region Step 2 - Mocking the response type in terms of business objects
+    
+    //Mocking the response type in terms of business objects
     let expectedPokemons: Pokemon[] = [
       { id: 1, name: 'Pokemon A', urlImage: (environment['pokeapi-imgs-url'] + '1.png' ) },
       { id: 2, name: 'Pokemon B', urlImage: (environment['pokeapi-imgs-url'] + '2.png' )  },
@@ -50,7 +51,7 @@ fdescribe('PokemonRepositoryImplAPIService', () => {
     ];
     //#endregion
     
-    //#region Step 3 - Executing the tested method
+    //#region Step 2 - ACTING executing the tested method
     let pokemonsBusinessObjects: Pokemon[] = [];
     service.getAllPokemons().subscribe((pokemons: Pokemon[]) => {
       pokemonsBusinessObjects = pokemons;
@@ -58,7 +59,7 @@ fdescribe('PokemonRepositoryImplAPIService', () => {
     });
     //#endregion
 
-    //#region Step 4 - Evaluating the results
+    //#region Step 3 - ASSERTING and Evaluating the results
     expect(httpClientSpy.get).toHaveBeenCalledTimes(1)
     expect(pokemonsBusinessObjects).toEqual(expectedPokemons);
     //#endregion
