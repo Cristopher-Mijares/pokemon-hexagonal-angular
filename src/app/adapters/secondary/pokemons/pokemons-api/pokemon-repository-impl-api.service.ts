@@ -20,14 +20,13 @@ export class PokemonRepositoryImplAPIService implements PokemonRepository {
         map((response: GetAllPokemonResponseDto) => {
           let pokemons: Pokemon[] = [];
           response.results.forEach((resultItem: GetAllResultItemDto, index) => {
-            debugger;
             let pokemonId: number = parseInt(
               resultItem.url.split('/').reverse()[1]
             );
             pokemons.push({
               id: pokemonId,
               name: resultItem.name,
-              urlImage: environment['pokeapi-imgs-url'] + pokemonId + '.png',
+              imageUrl: environment['pokeapi-imgs-url'] + pokemonId + '.png',
             });
           });
           return pokemons;

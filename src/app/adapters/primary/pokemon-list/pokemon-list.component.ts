@@ -6,16 +6,18 @@ import { CrudManagerPokemon } from 'src/app/core/usecases/ports/primary/crud-man
 @Component({
   selector: 'app-pokemon-list',
   templateUrl: './pokemon-list.component.html',
-  styleUrls: ['./pokemon-list.component.css'],
+  styleUrls: ['./pokemon-list.component.css']
 })
 export class PokemonListComponent {
   public pokemons: Observable<Pokemon[]>;
+  public displayedColumns: string[];
 
   constructor(
     @Inject('CrudManagerPokemon')
     private pokemonsCrudManager: CrudManagerPokemon
   ) {
     this.pokemons = this.pokemonsCrudManager.getAllPokemonsThatEnjoyDanoninos();
+    this.displayedColumns = ['id', 'name', 'imageUrl'];
   }
 
   ngOnInit() {}

@@ -45,9 +45,9 @@ fdescribe('PokemonRepositoryImplAPIService', () => {
     
     //Mocking the response type in terms of business objects
     let expectedPokemons: Pokemon[] = [
-      { id: 1, name: 'Pokemon A', urlImage: (environment['pokeapi-imgs-url'] + '1.png' ) },
-      { id: 2, name: 'Pokemon B', urlImage: (environment['pokeapi-imgs-url'] + '2.png' )  },
-      { id: 3, name: 'Pokemon C', urlImage: (environment['pokeapi-imgs-url'] + '3.png' )  }
+      { id: 1, name: 'Pokemon A', imageUrl: (environment['pokeapi-imgs-url'] + '1.png' ) },
+      { id: 2, name: 'Pokemon B', imageUrl: (environment['pokeapi-imgs-url'] + '2.png' )  },
+      { id: 3, name: 'Pokemon C', imageUrl: (environment['pokeapi-imgs-url'] + '3.png' )  }
     ];
     //#endregion
     

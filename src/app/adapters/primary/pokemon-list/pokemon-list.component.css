@@ -1,0 +1,25 @@
+table {
+    width: 100%;
+  }
+
+  mat-card-header{
+    padding: 5px;
+    color: #00ACED;
+  }
+
+  mat-card-title {
+    font-family: 'Danone';
+    padding: 10px;
+  }
+  
+  mat-card-content{
+    padding: 10px;
+  }
+  
+  mat-card{
+    padding:0;
+  }
+
+  .pokemonName {
+    text-transform: capitalize;
+  }

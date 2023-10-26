@@ -20,7 +20,7 @@ export class CrudManagerPokemonService implements CrudManagerPokemon {
           processedResp.push({
             id: itemResponse.id,
             name: itemResponse.name + ' enjoy eating Danoninos :P',
-            urlImage: itemResponse.urlImage,
+            imageUrl: itemResponse.imageUrl,
           });
         });
         return processedResp;
